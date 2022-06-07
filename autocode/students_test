@@ -2,6 +2,8 @@ package coverage
 
 import (
 	"os"
+	"testing"
+	"time"
 )
 
 // DO NOT EDIT THIS FUNCTION
@@ -18,3 +20,58 @@ func init() {
 
 // WRITE YOUR CODE BELOW
 
+func TestLenOK(t *testing.T) {
+	
+	band := People{
+		Person{firstName: "Richard", lastName: "Helm", birthDay: time.Date(1970, 01, 01, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "Erich", lastName: "Gamma", birthDay: time.Date(1961, 03, 13, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "Ralph", lastName: "Johnson", birthDay: time.Date(1955, 10, 07, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "John", lastName: "Vlissides", birthDay: time.Date(1961, 8, 02, 00, 00, 00, 0, time.UTC)},
+	}
+
+	if band.Len() != len(band) {
+		t.Errorf("func Len() result is not equal to len() of the slice!") 
+	}
+}
+
+func TestLessOK(t *testing.T) {
+
+	band := People{
+		Person{firstName: "Richard", lastName: "Helm", birthDay: time.Date(1970, 01, 01, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "John", lastName: "Gamma", birthDay: time.Date(1970, 01, 01, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "Ralph", lastName: "Johnson", birthDay: time.Date(1955, 10, 07, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "John", lastName: "Vlissides", birthDay: time.Date(1970, 01, 01, 00, 00, 00, 0, time.UTC)},
+	}
+
+	var k, i, j, m int = 0, 1, 2, 3
+
+	if band.Less(i, j) != true {
+		t.Errorf("func Less() result comparing birthdays is not right!")
+	}
+
+	if band.Less(k, m) == true {
+		t.Errorf("func Less() result comparing firstNames is not right")
+	}
+
+	if band.Less(i, m) != true {
+		t.Errorf("func Less() result comparing lastNames is not right")
+	}
+}
+
+func TestSwapOK(t *testing.T) {
+
+	band := People{
+		Person{firstName: "Richard", lastName: "Helm", birthDay: time.Date(1970, 01, 01, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "Erich", lastName: "Gamma", birthDay: time.Date(1961, 03, 13, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "Ralph", lastName: "Johnson", birthDay: time.Date(1955, 10, 07, 00, 00, 00, 0, time.UTC)},
+		Person{firstName: "John", lastName: "Vlissides", birthDay: time.Date(1961, 8, 02, 00, 00, 00, 0, time.UTC)},
+	}
+
+	var i, j = 0, 3
+
+	band.Swap(i, j)
+
+	if band[0].firstName != "John" || band[3].lastName != "Helm" {
+		t.Errorf("func Swap() result is not right")
+	}
+}
